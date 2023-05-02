@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 import { useTable } from 'react-table';
 
@@ -6,10 +7,12 @@ const data = tableData;
 
 const columns = [
   {
-    Header: 'Problem Name',
+    Header: 'Problem',
     accessor: 'name' as const,
+    Cell: ({ row }: any) => {
+      return <a href={row.original.link}>{row.original.name}</a>;
+    },
   },
-  { Header: 'Link', accessor: 'link' as const },
   { Header: 'Difficulty', accessor: 'difficulty' as const },
   {
     Header: 'Companies',
@@ -50,7 +53,19 @@ export const QuestionsGrid = () => {
               {row.cells.map((cell) => (
                 <td
                   key={cell.column.id}
-                  className="px-4 py-2 text-lg text-white"
+                  className={classNames('px-4 py-2 text-lg', {
+                    'text-white': cell.column.id !== 'difficulty',
+                    'text-difficulty-easy':
+                      cell.column.id === 'difficulty' &&
+                      cell.value.trim() === 'Easy',
+                    'text-difficulty-medium':
+                      cell.column.id === 'difficulty' &&
+                      cell.value.trim() === 'Medium',
+                    'text-difficulty-hard':
+                      cell.column.id === 'difficulty' &&
+                      cell.value.trim() === 'Hard',
+                    'hover:text-blue': cell.column.id === 'name',
+                  })}
                 >
                   {cell.render('Cell')}
                 </td>
