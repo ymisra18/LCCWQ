@@ -2,28 +2,10 @@ import classNames from 'classnames';
 import React from 'react';
 import { usePagination, useTable } from 'react-table';
 
+import { columns } from '../../constants/questionsGridColumn';
 import tableData from '../../mocks/data.json';
+import { fetchDifficultyColourCoding } from '../../utils/questionsGrid.utils';
 const data = tableData;
-
-const columns = [
-  {
-    Header: 'Problem',
-    accessor: 'name' as const,
-    Cell: ({ row }: any) => {
-      return <a href={row.original.link}>{row.original.name}</a>;
-    },
-  },
-  { Header: 'Difficulty', accessor: 'difficulty' as const },
-  {
-    Header: 'Companies',
-    accessor: 'companies' as const,
-    Cell: ({ value }: any) => {
-      return value
-        .map((compData: any) => `${compData.company_name} ${compData.freq}`)
-        .join(',');
-    },
-  },
-];
 
 export const QuestionsGrid = () => {
   const tableInstance = useTable({ columns, data }, usePagination);
@@ -54,19 +36,10 @@ export const QuestionsGrid = () => {
                 {row.cells.map((cell) => (
                   <td
                     key={cell.column.id}
-                    className={classNames('px-4 py-2 text-lg', {
-                      'text-white': cell.column.id !== 'difficulty',
-                      'text-difficulty-easy':
-                        cell.column.id === 'difficulty' &&
-                        cell.value.trim() === 'Easy',
-                      'text-difficulty-medium':
-                        cell.column.id === 'difficulty' &&
-                        cell.value.trim() === 'Medium',
-                      'text-difficulty-hard':
-                        cell.column.id === 'difficulty' &&
-                        cell.value.trim() === 'Hard',
-                      'hover:text-blue': cell.column.id === 'name',
-                    })}
+                    className={classNames(
+                      'px-4 py-2 text-lg',
+                      fetchDifficultyColourCoding(cell)
+                    )}
                   >
                     {cell.render('Cell')}
                   </td>
