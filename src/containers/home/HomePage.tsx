@@ -1,6 +1,6 @@
 import { Footer } from 'components/footer/Footer';
 import { Header } from 'components/header/Header';
-import { QuestionsGrid } from 'components/questionsGrid/QuestionsGrid';
+import QuestionsGrid from 'components/questionsGrid/QuestionsGrid';
 import React from 'react';
 
 export const HomePage = () => {

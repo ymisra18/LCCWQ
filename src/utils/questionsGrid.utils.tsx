@@ -6,5 +6,4 @@ export const fetchDifficultyColourCoding = (cell: any) => ({
     cell.column.id === 'difficulty' && cell.value.trim() === 'Medium',
   'text-difficulty-hard':
     cell.column.id === 'difficulty' && cell.value.trim() === 'Hard',
-  'hover:text-blue': cell.column.id === 'name',
 });

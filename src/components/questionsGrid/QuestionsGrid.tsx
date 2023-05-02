@@ -7,7 +7,7 @@ import tableData from '../../mocks/data.json';
 import { fetchDifficultyColourCoding } from '../../utils/questionsGrid.utils';
 const data = tableData;
 
-export const QuestionsGrid = () => {
+const QuestionsGrid = () => {
   const tableInstance = useTable({ columns, data }, usePagination);
 
   return (
@@ -66,3 +66,5 @@ export const QuestionsGrid = () => {
     </>
   );
 };
+
+export default QuestionsGrid;

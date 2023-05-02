@@ -4,7 +4,11 @@ export const columns = [
     Header: 'Problem',
     accessor: 'name' as const,
     Cell: ({ row }: any) => {
-      return <a href={row.original.link}>{row.original.name}</a>;
+      return (
+        <a className="hover:text-blue" href={row.original.link}>
+          {row.original.name}
+        </a>
+      );
     },
   },
   { Header: 'Difficulty', accessor: 'difficulty' as const },
