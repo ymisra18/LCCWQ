@@ -14,7 +14,7 @@ module.exports = {
       error: '#C93623',
       searchText: '#56657E',
       headerText: '#eff2f699',
-      blue: '#0000EE',
+      blue: '#078df8',
       difficulty: {
         easy: '#00B8A3',
         medium: '#FFC05E',
