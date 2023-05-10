@@ -1,34 +1,70 @@
 import classNames from 'classnames';
+import DropdownMenu from 'components/dropdownMenu/DropdownMenu';
 import { Searchbar } from 'components/searchbar/Searchbar';
-import React, { useEffect, useState } from 'react';
-import Select from 'react-select';
+import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { usePagination, useTable } from 'react-table';
 
-import { columns } from '../../constants/questionsGridColumn';
-import tableData from '../../mocks/data.json';
+import {
+  columns,
+  HEADER_COLUMN_CLASS,
+  HeaderColumn,
+} from '../../constants/questionsGridColumn';
+import allTableData from '../../mocks/data.json';
 import { fetchDifficultyColourCoding } from '../../utils/questionsGrid.utils';
 
-const QuestionsGrid = () => {
-  const tableInstance = useTable({ columns, data: tableData }, usePagination);
-  const options = [
-    { value: 20, label: '20 / Page' },
-    { value: 50, label: '50 / Page' },
-    { value: 100, label: '100 / Page' },
-  ];
-  const [selectedOption, setSelectedOption] = useState(options[0]);
+const filteredData = (data: any, selectedList: any) =>
+  data.filter(
+    (row: any) =>
+      selectedList.includes('') ||
+      selectedList.includes(row.difficulty.toLowerCase())
+  );
 
+const QuestionsGrid = () => {
+  const pageSizeOptions = [
+    { value: 20, label: '20/ Page' },
+    { value: 50, label: '50/ Page' },
+    { value: 100, label: '100/ Page' },
+  ];
+  const [selectedPageSizeOption, setSelectedPageSizeOption] = useState(
+    pageSizeOptions[0]
+  );
+
+  const options = [
+    { value: '', label: 'All Difficulty Levels' },
+    { value: 'easy', label: 'Easy' },
+    { value: 'medium', label: 'Medium' },
+    { value: 'hard', label: 'Hard' },
+  ];
+  const [selectedDifficultyLevel, setSelectedDifficultyLevel] = useState(
+    options[0]
+  );
+
+  const tableData = useMemo(
+    () => filteredData(allTableData, [selectedDifficultyLevel.value]),
+    [selectedDifficultyLevel]
+  );
+
+  const tableInstance = useTable({ columns, data: tableData }, usePagination);
   const handleChange = (option: any) => {
-    setSelectedOption(option);
+    setSelectedPageSizeOption(option);
     tableInstance.setPageSize(option.value);
+  };
+  const handleDifficultyChange = (option: any) => {
+    setSelectedDifficultyLevel(option);
   };
 
   useEffect(() => {
-    tableInstance.setPageSize(selectedOption.value);
-  }, [selectedOption, tableInstance]);
+    tableInstance.setPageSize(selectedPageSizeOption.value);
+  }, [selectedPageSizeOption, tableInstance]);
 
   return (
     <>
       <div className="p-6 lg:mx-[241.5px]">
+        <DropdownMenu
+          options={options}
+          selectedOption={selectedDifficultyLevel}
+          handleChange={handleDifficultyChange}
+        />
         <div className="flex justify-end">
           <Searchbar />
         </div>
@@ -38,7 +74,7 @@ const QuestionsGrid = () => {
               {tableInstance.headers.map((column) => (
                 <th
                   key={column.id}
-                  className="px-4 py-2 text-left font-semibold text-xl text-headerText"
+                  className="px-4 py-2 text-center font-semibold text-xl text-headerText"
                 >
                   {column.render('Header')}
                 </th>
@@ -57,7 +93,10 @@ const QuestionsGrid = () => {
                     <td
                       key={cell.column.id}
                       className={classNames(
-                        'px-4 py-2 text-[14px]',
+                        'px-4 py-2 text-xs leading-6',
+                        HEADER_COLUMN_CLASS[
+                          cell.column.id as keyof HeaderColumn
+                        ],
                         fetchDifficultyColourCoding(cell)
                       )}
                     >
@@ -70,43 +109,13 @@ const QuestionsGrid = () => {
           </tbody>
         </table>
         <div className="flex justify-between mt-4">
-          <Select
-            className="w-[111px] h-[27px]"
-            classNamePrefix="react-select"
-            styles={{
-              control: (provided) => ({
-                ...provided,
-                backgroundColor: 'rgba(255, 255, 255, 0.12)',
-                border: 'none',
-              }),
-              menu: (provided) => ({
-                ...provided,
-                backgroundColor: 'inherit',
-              }),
-              singleValue: (provided) => ({
-                ...provided,
-                color: 'rgba(239, 241, 246, 0.75)',
-                fontSize: '0.875rem',
-                lineHeight: '1.25rem',
-                textOverflow: 'initial',
-                marginRight: 10,
-              }),
-              dropdownIndicator: (provided) => ({
-                ...provided,
-                color: 'rgba(239, 241, 246, 0.75)',
-                paddingLeft: 0,
-              }),
-              valueContainer: (provided) => ({
-                ...provided,
-                paddingRight: 0,
-                width: '120px',
-              }),
-            }}
-            options={options}
-            value={selectedOption}
-            onChange={handleChange}
-            components={{ IndicatorSeparator: () => null }}
-          />
+          <div className="relative inline-block">
+            <DropdownMenu
+              options={pageSizeOptions}
+              selectedOption={selectedPageSizeOption}
+              handleChange={handleChange}
+            />
+          </div>
 
           <div className="pagination">
             <button

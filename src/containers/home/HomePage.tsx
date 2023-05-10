@@ -8,7 +8,7 @@ export const HomePage = () => {
     <>
       <div className="bg-graybg min-h-screen">
         <Header />
-        <div className="mt-[52px]">
+        <div className="mt-[52px] mb-[116px]">
           <QuestionsGrid />
         </div>
 
