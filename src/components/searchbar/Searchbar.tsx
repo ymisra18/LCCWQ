@@ -2,36 +2,48 @@ import searchDark from 'assets/icons/searchDark.svg';
 import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 
-export const Searchbar = () => {
-  const searchRef = useRef<HTMLInputElement>(null);
-  //   const [searchText, setSearchText] = useState(defaultValue ?? '');
-  //   const handleKeyDown = (event: { key: string }) => {
-  //     if (event.key === 'Enter') fetchResults(searchText);
-  //   };
+export type SearchbarProps = {
+  placeholderContent: string;
+  defaultValue?: string;
+  fetchResults: (searchText: string) => void;
+  className?: string;
+};
 
-  //   useEffect(() => {
-  //     if (defaultValue === '') setSearchText('');
-  //   }, [defaultValue]);
+export const Searchbar = ({
+  placeholderContent,
+  fetchResults,
+  defaultValue,
+  className,
+}: SearchbarProps) => {
+  const searchRef = useRef<HTMLInputElement>(null);
+  const [searchText, setSearchText] = useState(defaultValue ?? '');
+  const handleKeyDown = (event: { key: string }) => {
+    if (event.key === 'Enter') fetchResults(searchText);
+  };
+
+  useEffect(() => {
+    if (defaultValue === '') setSearchText('');
+  }, [defaultValue]);
 
   return (
     <div data-testid="Searchbar" className="flex flex-row items-center">
       <input
         type="text"
         name="search"
-        // value={searchText}
+        value={searchText}
         className={
           'w-[312px] h-[32px] font-roboto text-searchText py-2 rounded-lg bg-tableRowEven border-white text-ellipsis whitespace-nowrap'
         }
-        placeholder={'  Search Questions'}
-        // onChange={(event) => setSearchText(event.target.value)}
-        // onKeyDown={handleKeyDown}
-        // ref={searchRef}
+        placeholder={placeholderContent}
+        onChange={(event) => setSearchText(event.target.value)}
+        onKeyDown={handleKeyDown}
+        ref={searchRef}
       />
       <label htmlFor="search">
         <button
           onClick={() => {
             searchRef?.current?.focus();
-            // fetchResults(searchText);
+            fetchResults(searchText);
           }}
         >
           <img
