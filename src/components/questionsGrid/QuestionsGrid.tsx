@@ -69,7 +69,7 @@ const QuestionsGrid = () => {
   useEffect(() => {
     tableInstance.setPageSize(selectedPageSizeOption.value);
   }, [selectedPageSizeOption, tableInstance]);
-  // const FilteredProblemByName = getFilteredProblemByName('test', allTableData);
+
   return (
     <>
       <div className="p-6 lg:mx-[241.5px]">
@@ -85,7 +85,7 @@ const QuestionsGrid = () => {
             <PopoverPanel
               buttonText="Companies"
               panelContent={
-                <ul>
+                <ul className="grid grid-cols-2 gap-4 ">
                   {calculateCompanyFrequency(allTableData).map(
                     ({ company_name, totalFrequency }) => (
                       <li key={company_name}>

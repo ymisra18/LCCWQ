@@ -32,20 +32,18 @@ const PopoverPanel = ({ buttonText, panelContent }: PopoverPanelProps) => {
               show={open}
               as={Fragment}
               enter="transition ease-out duration-100"
-              enterFrom="transform scale-95 opacity-0"
-              enterTo="transform scale-100 opacity-100"
+              enterFrom="transform scale-95"
+              enterTo="transform scale-100"
               leave="transition duration-75 ease-out"
-              leaveFrom="transform scale-100 opacity-100"
-              leaveTo="transform scale-95 opacity-0"
+              leaveFrom="transform scale-100"
+              leaveTo="transform scale-95"
             >
               <Popover.Panel
                 static
-                className="absolute z-10 w-4 mt-2 -ml-4 transform -translate-x-1/2 sm:px-0"
+                className="absolute left-0 w-[300px] mt-2 -ml-4 transform -translate-x-1/2 sm:px-0 flex flex-wrap text-white bg-black rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
               >
                 {/* Panel Content */}
-                <div className="absolute left-0 mt-2 origin-top-right text-white bg-tableRowEven divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  {panelContent}
-                </div>
+                {panelContent}
               </Popover.Panel>
             </Transition>
           </div>
