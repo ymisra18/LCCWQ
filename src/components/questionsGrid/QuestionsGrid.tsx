@@ -147,25 +147,26 @@ const QuestionsGrid = () => {
             />
           </div>
 
-          <div className="pagination">
+          <div className="text-headerText ">
             <button
               onClick={() => tableInstance.previousPage()}
               disabled={!tableInstance.canPreviousPage}
             >
-              Previous
+              {'<<'}
             </button>
             <span>
+              {' '}
               Page{' '}
               <strong>
                 {tableInstance.state.pageIndex + 1} of{' '}
-                {tableInstance.pageOptions.length}
+                {tableInstance.pageOptions.length}{' '}
               </strong>
             </span>
             <button
               onClick={() => tableInstance.nextPage()}
               disabled={!tableInstance.canNextPage}
             >
-              Next
+              {'>>'}
             </button>
           </div>
         </div>
