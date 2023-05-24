@@ -82,20 +82,7 @@ const QuestionsGrid = () => {
             />
           </div>
           <div>
-            <PopoverPanel
-              buttonText="Companies"
-              panelContent={
-                <ul className="grid grid-cols-2 gap-4 ">
-                  {calculateCompanyFrequency(allTableData).map(
-                    ({ company_name, totalFrequency }) => (
-                      <li key={company_name}>
-                        {company_name} ({totalFrequency})
-                      </li>
-                    )
-                  )}
-                </ul>
-              }
-            />
+            <PopoverPanel buttonText="Companies" />
           </div>
           <Searchbar
             placeholderContent="  Search Questions"

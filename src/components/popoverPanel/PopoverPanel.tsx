@@ -3,13 +3,15 @@ import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import React from 'react';
 import { Fragment } from 'react';
+import { calculateCompanyFrequency } from 'utils/questionsGrid.utils';
+
+import allTableData from '../../mocks/data.json';
 
 export type PopoverPanelProps = {
   buttonText: string;
-  panelContent: any;
 };
 
-const PopoverPanel = ({ buttonText, panelContent }: PopoverPanelProps) => {
+const PopoverPanel = ({ buttonText }: PopoverPanelProps) => {
   return (
     <Popover>
       {({ open }) => (
@@ -30,20 +32,27 @@ const PopoverPanel = ({ buttonText, panelContent }: PopoverPanelProps) => {
             {/* Popover Panel */}
             <Transition
               show={open}
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform scale-95"
-              enterTo="transform scale-100"
+              enter="transition duration-100 ease-out"
+              enterFrom="transform scale-95 opacity-0"
+              enterTo="transform scale-100 opacity-100"
               leave="transition duration-75 ease-out"
-              leaveFrom="transform scale-100"
-              leaveTo="transform scale-95"
+              leaveFrom="transform scale-100 opacity-100"
+              leaveTo="transform scale-95 opacity-0"
             >
               <Popover.Panel
                 static
                 className="absolute left-0 w-[300px] mt-2 -ml-4 transform -translate-x-1/2 sm:px-0 flex flex-wrap text-white bg-black rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
               >
                 {/* Panel Content */}
-                {panelContent}
+                <div className="flex flex-wrap gap-4 p-2">
+                  {calculateCompanyFrequency(allTableData).map(
+                    ({ company_name, totalFrequency }) => (
+                      <div key={company_name}>
+                        {company_name} ({totalFrequency})
+                      </div>
+                    )
+                  )}
+                </div>
               </Popover.Panel>
             </Transition>
           </div>
