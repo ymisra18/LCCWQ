@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import DropdownMenu from 'components/dropdownMenu/DropdownMenu';
+import PopoverPanel from 'components/popoverPanel/PopoverPanel';
 import { Searchbar } from 'components/searchbar/Searchbar';
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { usePagination, useTable } from 'react-table';
@@ -12,12 +13,13 @@ import {
 import allTableData from '../../mocks/data.json';
 import { fetchDifficultyColourCoding } from '../../utils/questionsGrid.utils';
 
-const filteredData = (data: any, selectedList: any) =>
-  data.filter(
-    (row: any) =>
-      selectedList.includes('') ||
-      selectedList.includes(row.difficulty.toLowerCase())
+const getFilteredProblemByName = (searchString: string, data: any) => {
+  if (!searchString) return data;
+  const lowerSearchString = searchString.toLowerCase();
+  return data.filter((data: any) =>
+    data.name.toLowerCase().includes(lowerSearchString)
   );
+};
 
 const QuestionsGrid = () => {
   const pageSizeOptions = [
@@ -30,7 +32,7 @@ const QuestionsGrid = () => {
   );
 
   const options = [
-    { value: '', label: 'All Difficulty Levels' },
+    { value: '', label: 'All Levels' },
     { value: 'easy', label: 'Easy' },
     { value: 'medium', label: 'Medium' },
     { value: 'hard', label: 'Hard' },
@@ -39,10 +41,18 @@ const QuestionsGrid = () => {
     options[0]
   );
 
-  const tableData = useMemo(
-    () => filteredData(allTableData, [selectedDifficultyLevel.value]),
-    [selectedDifficultyLevel]
-  );
+  const [searchText, setSearchText] = useState('');
+  const handleSearchChange = (searchText: string) => {
+    setSearchText(searchText);
+  };
+  const tableData = useMemo(() => {
+    const filteredData = getFilteredProblemByName(searchText, allTableData);
+    return filteredData.filter(
+      (row: any) =>
+        selectedDifficultyLevel.value === '' ||
+        row.difficulty.toLowerCase() === selectedDifficultyLevel.value
+    );
+  }, [searchText, selectedDifficultyLevel]);
 
   const tableInstance = useTable({ columns, data: tableData }, usePagination);
   const handleChange = (option: any) => {
@@ -56,17 +66,37 @@ const QuestionsGrid = () => {
   useEffect(() => {
     tableInstance.setPageSize(selectedPageSizeOption.value);
   }, [selectedPageSizeOption, tableInstance]);
-
+  // const FilteredProblemByName = getFilteredProblemByName('test', allTableData);
   return (
     <>
       <div className="p-6 lg:mx-[241.5px]">
-        <DropdownMenu
-          options={options}
-          selectedOption={selectedDifficultyLevel}
-          handleChange={handleDifficultyChange}
-        />
-        <div className="flex justify-end">
-          <Searchbar />
+        <div className="flex justify-between">
+          <div>
+            <DropdownMenu
+              options={options}
+              selectedOption={selectedDifficultyLevel}
+              handleChange={handleDifficultyChange}
+            />
+          </div>
+          <div>
+            {/* Replace the Popover section with the PopoverPanel component */}
+            <PopoverPanel
+              buttonText="Companies"
+              panelContent={
+                <ul>
+                  <li>Company 1</li>
+                  <li>Company 2</li>
+                  <li>Company 3</li>
+                  {/* Add more company names here */}
+                </ul>
+              }
+            />
+          </div>
+          <Searchbar
+            placeholderContent="  Search Questions"
+            fetchResults={handleSearchChange}
+            defaultValue={searchText}
+          />
         </div>
         <table className="table-auto w-full z-20">
           <thead>
