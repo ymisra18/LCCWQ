@@ -11,7 +11,10 @@ import {
   HeaderColumn,
 } from '../../constants/questionsGridColumn';
 import allTableData from '../../mocks/data.json';
-import { fetchDifficultyColourCoding } from '../../utils/questionsGrid.utils';
+import {
+  calculateCompanyFrequency,
+  fetchDifficultyColourCoding,
+} from '../../utils/questionsGrid.utils';
 
 const getFilteredProblemByName = (searchString: string, data: any) => {
   if (!searchString) return data;
@@ -79,15 +82,17 @@ const QuestionsGrid = () => {
             />
           </div>
           <div>
-            {/* Replace the Popover section with the PopoverPanel component */}
             <PopoverPanel
               buttonText="Companies"
               panelContent={
                 <ul>
-                  <li>Company 1</li>
-                  <li>Company 2</li>
-                  <li>Company 3</li>
-                  {/* Add more company names here */}
+                  {calculateCompanyFrequency(allTableData).map(
+                    ({ company_name, totalFrequency }) => (
+                      <li key={company_name}>
+                        {company_name} ({totalFrequency})
+                      </li>
+                    )
+                  )}
                 </ul>
               }
             />
