@@ -14,6 +14,7 @@ export type PopoverPanelProps = {
 const PopoverPanel: React.FC<PopoverPanelProps> = ({ buttonText }) => {
   const [expanded, setExpanded] = useState(false);
   const [searchText, setSearchText] = useState('');
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   const maxItemsToShow = 23;
 
@@ -21,11 +22,27 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({ buttonText }) => {
     setSearchText(value.trim().toLowerCase());
   };
 
+  const handleItemSelection = (item: string) => {
+    if (selectedItems.includes(item)) {
+      setSelectedItems(
+        selectedItems.filter((selectedItem) => selectedItem !== item)
+      );
+    } else {
+      setSelectedItems([...selectedItems, item]);
+    }
+  };
+
   const renderedItems = calculateCompanyFrequency(allTableData).map(
     ({ company_name, totalFrequency }) => (
       <div
         key={company_name}
-        className="text-sm bg-companyTagBg mr-2 rounded-full inline-flex items-center leading-6 px-2 whitespace-nowrap"
+        className={classNames(
+          'text-sm bg-companyTagBg mr-2 rounded-full inline-flex items-center leading-6 px-2 whitespace-nowrap',
+          {
+            'bg-blue': selectedItems.includes(company_name),
+          }
+        )}
+        onClick={() => handleItemSelection(company_name)}
       >
         {company_name}
         <div className="rounded-full inline-flex items-center leading-4 bg-freqTag text-freqText ml-1 my-[4px] px-1.5 whitespace-nowrap">
