@@ -46,7 +46,7 @@ const QuestionsGrid = () => {
 
   const [searchText, setSearchText] = useState('');
   const handleSearchChange = (searchText: string) => {
-    setSearchText(searchText);
+    setSearchText(searchText.trim());
   };
   const tableData = useMemo(() => {
     const filteredData = getFilteredProblemByName(searchText, allTableData);

@@ -1,8 +1,8 @@
 import { Popover, Transition } from '@headlessui/react';
-import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
+import { ChevronDownIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
+import { Searchbar } from 'components/searchbar/Searchbar';
 import React, { useState } from 'react';
-import { Fragment } from 'react';
 import { calculateCompanyFrequency } from 'utils/questionsGrid.utils';
 
 import allTableData from '../../mocks/data.json';
@@ -11,14 +11,15 @@ export type PopoverPanelProps = {
   buttonText: string;
 };
 
-const PopoverPanel = ({ buttonText }: PopoverPanelProps) => {
+const PopoverPanel: React.FC<PopoverPanelProps> = ({ buttonText }) => {
   const [expanded, setExpanded] = useState(false);
-
-  const toggleExpansion = () => {
-    setExpanded(!expanded);
-  };
+  const [searchText, setSearchText] = useState('');
 
   const maxItemsToShow = 20;
+
+  const handleSearchChange = (value: string) => {
+    setSearchText(value.trim().toLowerCase());
+  };
 
   const renderedItems = calculateCompanyFrequency(allTableData).map(
     ({ company_name, totalFrequency }) => (
@@ -28,10 +29,19 @@ const PopoverPanel = ({ buttonText }: PopoverPanelProps) => {
     )
   );
 
+  const filteredItems = renderedItems.filter(({ props }) =>
+    props.children.toString().toLowerCase().includes(searchText)
+  );
+
   const itemsToShow = expanded
-    ? renderedItems
-    : renderedItems.slice(0, maxItemsToShow);
-  const shouldShowExpandButton = renderedItems.length > maxItemsToShow;
+    ? filteredItems
+    : filteredItems.slice(0, maxItemsToShow);
+
+  const shouldShowExpandButton = filteredItems.length > maxItemsToShow;
+
+  const toggleExpansion = () => {
+    setExpanded(!expanded);
+  };
 
   return (
     <Popover>
@@ -65,7 +75,14 @@ const PopoverPanel = ({ buttonText }: PopoverPanelProps) => {
                 className="absolute left-[190%] w-[500px] mt-2 transform -translate-x-1/2 sm:px-0 overflow-y-auto max-h-96 bg-tableRowEven text-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
               >
                 {/* Panel Content */}
-                <div className="flex flex-wrap gap-4 p-2">{itemsToShow}</div>
+                <div className="flex flex-wrap gap-4 p-2">
+                  <Searchbar
+                    placeholderContent="Search Companies"
+                    fetchResults={handleSearchChange}
+                    defaultValue={searchText}
+                  />
+                  {itemsToShow}
+                </div>
                 {shouldShowExpandButton && (
                   <button
                     className="w-full text-left text-white focus:outline-none"

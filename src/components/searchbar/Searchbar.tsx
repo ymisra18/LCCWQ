@@ -1,5 +1,4 @@
 import searchDark from 'assets/icons/searchDark.svg';
-import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 
 export type SearchbarProps = {
@@ -17,13 +16,15 @@ export const Searchbar = ({
 }: SearchbarProps) => {
   const searchRef = useRef<HTMLInputElement>(null);
   const [searchText, setSearchText] = useState(defaultValue ?? '');
-  const handleKeyDown = (event: { key: string }) => {
-    if (event.key === 'Enter') fetchResults(searchText);
-  };
 
   useEffect(() => {
     if (defaultValue === '') setSearchText('');
   }, [defaultValue]);
+
+  const handleSearch = (value: string) => {
+    setSearchText(value);
+    fetchResults(value);
+  };
 
   return (
     <div data-testid="Searchbar" className="flex flex-row items-center">
@@ -35,8 +36,12 @@ export const Searchbar = ({
           'w-[312px] h-[32px] font-roboto text-searchText py-2 rounded-lg bg-tableRowEven border-white text-ellipsis whitespace-nowrap'
         }
         placeholder={placeholderContent}
-        onChange={(event) => setSearchText(event.target.value)}
-        onKeyDown={handleKeyDown}
+        onChange={(event) => handleSearch(event.target.value)}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter') {
+            fetchResults(searchText);
+          }
+        }}
         ref={searchRef}
       />
       <label htmlFor="search">
