@@ -23,8 +23,14 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({ buttonText }) => {
 
   const renderedItems = calculateCompanyFrequency(allTableData).map(
     ({ company_name, totalFrequency }) => (
-      <div key={company_name}>
-        {company_name} ({totalFrequency})
+      <div
+        key={company_name}
+        className="text-sm bg-companyTagBg mr-2 rounded-full inline-flex items-center leading-6 px-2 whitespace-nowrap"
+      >
+        {company_name}
+        <div className="rounded-full inline-flex items-center leading-4 bg-freqTag text-freqText ml-1 my-[4px] px-1.5 whitespace-nowrap">
+          {totalFrequency}
+        </div>
       </div>
     )
   );
@@ -41,6 +47,18 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({ buttonText }) => {
 
   const toggleExpansion = () => {
     setExpanded(!expanded);
+  };
+
+  const renderItems = () => {
+    if (filteredItems.length === 0) {
+      return <div className="text-error">No Results</div>;
+    }
+
+    return itemsToShow.map((item) => (
+      <div key={item.key} className="flex">
+        {item}
+      </div>
+    ));
   };
 
   return (
@@ -82,16 +100,12 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({ buttonText }) => {
                     defaultValue={searchText}
                     className="!text-companyTagText !bg-companyTagBg !pl-[40px] "
                   />
-                  <div className="max-h-96 overflow-y-auto flex flex-wrap gap-4">
-                    {itemsToShow.map((item) => (
-                      <div key={item.key} className="flex">
-                        {item}
-                      </div>
-                    ))}
+                  <div className="max-h-96 overflow-y-auto flex flex-wrap gap-2">
+                    {renderItems()}
                   </div>
                   {shouldShowExpandButton && (
                     <button
-                      className="w-full text-left text-white focus:outline-none"
+                      className="w-full text-right text-blue focus:outline-none"
                       onClick={toggleExpansion}
                     >
                       {expanded ? 'Collapse' : 'Expand'}
