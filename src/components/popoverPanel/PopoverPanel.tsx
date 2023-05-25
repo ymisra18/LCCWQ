@@ -20,7 +20,6 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({
 }) => {
   const [expanded, setExpanded] = useState(false);
   const [searchText, setSearchText] = useState('');
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   const maxItemsToShow = 23;
 
@@ -30,16 +29,6 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({
   const handleItemSelection = (item: string) => {
     handleCompanySelection(item);
   };
-
-  // const handleItemSelection = (item: string) => {
-  //   if (selectedItems.includes(item)) {
-  //     setSelectedItems(
-  //       selectedItems.filter((selectedItem) => selectedItem !== item)
-  //     );
-  //   } else {
-  //     setSelectedItems([...selectedItems, item]);
-  //   }
-  // };
 
   const renderedItems = calculateCompanyFrequency(allTableData).map(
     ({ company_name, totalFrequency }) => (
