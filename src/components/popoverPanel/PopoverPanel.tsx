@@ -18,7 +18,7 @@ const PopoverPanel = ({ buttonText }: PopoverPanelProps) => {
     setExpanded(!expanded);
   };
 
-  const maxItemsToShow = 20; // Change this number to the desired threshold
+  const maxItemsToShow = 20;
 
   const renderedItems = calculateCompanyFrequency(allTableData).map(
     ({ company_name, totalFrequency }) => (
