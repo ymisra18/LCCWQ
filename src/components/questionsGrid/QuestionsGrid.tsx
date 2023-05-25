@@ -43,13 +43,28 @@ const QuestionsGrid = () => {
   const [selectedCompanies, setSelectedCompanies] = useState<string[]>([]);
   const handleCompanySelection = (companyName: string) => {
     setSelectedCompanies((prevSelected) => {
-      if (prevSelected.includes(companyName)) {
-        return prevSelected.filter((company) => company !== companyName);
+      if (companyName === 'Miscellaneous') {
+        if (prevSelected.includes(companyName)) {
+          return prevSelected.filter((company) => company !== companyName);
+        } else {
+          return [companyName, ...prevSelected];
+        }
       } else {
-        return [...prevSelected, companyName];
+        if (prevSelected.includes(companyName)) {
+          return prevSelected.filter((company) => company !== companyName);
+        } else {
+          const updatedSelectedCompanies = [...prevSelected, companyName];
+          const miscellaneousIndex =
+            updatedSelectedCompanies.indexOf('Miscellaneous');
+          if (miscellaneousIndex !== -1) {
+            updatedSelectedCompanies.splice(miscellaneousIndex, 1);
+          }
+          return updatedSelectedCompanies;
+        }
       }
     });
   };
+
   const [searchText, setSearchText] = useState('');
   const handleSearchChange = (searchText: string) => {
     setSearchText(searchText.trim());
@@ -68,10 +83,8 @@ const QuestionsGrid = () => {
     let filteredByCompany = filteredByDifficulty;
 
     if (selectedCompanies.includes('Miscellaneous')) {
-      filteredByCompany = filteredByDifficulty.filter((row: any) =>
-        row.companies.some(
-          (company: any) => company.company_name === 'Miscellaneous'
-        )
+      filteredByCompany = filteredByDifficulty.filter(
+        (row: any) => row.companies.length === 0
       );
     } else if (selectedCompanies.length > 0) {
       const selectedCompanyNames = selectedCompanies.map((company) =>
