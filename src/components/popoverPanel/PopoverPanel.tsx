@@ -1,4 +1,5 @@
 import { Popover, Transition } from '@headlessui/react';
+import { XIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import { Searchbar } from 'components/searchbar/Searchbar';
@@ -146,14 +147,17 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({
               {selectedTags.map((tag: any) => (
                 <div
                   key={tag}
-                  className="text-sm bg-companyTagBg rounded-full inline-flex items-center leading-6 px-2 whitespace-nowrap"
+                  className="text-sm bg-companyTagBg rounded-full  text-white inline-flex items-center leading-6 px-2 whitespace-nowrap"
                 >
                   {tag}
                   <button
-                    className="w-4 h-4 ml-1 rounded-full bg-red-500 text-white flex items-center justify-center"
+                    className="w-3 h-3 ml-1 rounded-full bg- text-sm bg-companyTagText flex items-center justify-center"
                     onClick={() => handleCompanySelection(tag)}
                   >
-                    X
+                    <XIcon
+                      className="w-2 h-2 text-graybg "
+                      aria-hidden="true"
+                    />
                   </button>
                 </div>
               ))}
