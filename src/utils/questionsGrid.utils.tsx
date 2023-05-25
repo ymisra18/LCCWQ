@@ -22,19 +22,24 @@ interface Data {
 
 export const calculateCompanyFrequency = (arr: Data[]): CompanyFrequency[] => {
   const companyFrequencyMap: { [key: string]: number } = {};
+  let miscellaneousFrequency = 0;
 
   arr.forEach((obj) => {
     const { companies } = obj;
 
-    companies.forEach((company) => {
-      const { company_name } = company;
+    if (companies.length === 0) {
+      miscellaneousFrequency++;
+    } else {
+      companies.forEach((company) => {
+        const { company_name } = company;
 
-      if (companyFrequencyMap.hasOwnProperty(company_name)) {
-        companyFrequencyMap[company_name]++;
-      } else {
-        companyFrequencyMap[company_name] = 1;
-      }
-    });
+        if (companyFrequencyMap.hasOwnProperty(company_name)) {
+          companyFrequencyMap[company_name]++;
+        } else {
+          companyFrequencyMap[company_name] = 1;
+        }
+      });
+    }
   });
 
   const companyFrequency: CompanyFrequency[] = Object.entries(
@@ -43,6 +48,13 @@ export const calculateCompanyFrequency = (arr: Data[]): CompanyFrequency[] => {
     company_name,
     totalFrequency,
   }));
+
+  if (miscellaneousFrequency > 0) {
+    companyFrequency.push({
+      company_name: 'Miscellaneous',
+      totalFrequency: miscellaneousFrequency,
+    });
+  }
 
   return companyFrequency;
 };

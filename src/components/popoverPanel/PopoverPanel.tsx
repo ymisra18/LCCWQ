@@ -1,7 +1,7 @@
 import { Popover, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
-import React from 'react';
+import React, { useState } from 'react';
 import { Fragment } from 'react';
 import { calculateCompanyFrequency } from 'utils/questionsGrid.utils';
 
@@ -12,6 +12,27 @@ export type PopoverPanelProps = {
 };
 
 const PopoverPanel = ({ buttonText }: PopoverPanelProps) => {
+  const [expanded, setExpanded] = useState(false);
+
+  const toggleExpansion = () => {
+    setExpanded(!expanded);
+  };
+
+  const maxItemsToShow = 20; // Change this number to the desired threshold
+
+  const renderedItems = calculateCompanyFrequency(allTableData).map(
+    ({ company_name, totalFrequency }) => (
+      <div key={company_name}>
+        {company_name} ({totalFrequency})
+      </div>
+    )
+  );
+
+  const itemsToShow = expanded
+    ? renderedItems
+    : renderedItems.slice(0, maxItemsToShow);
+  const shouldShowExpandButton = renderedItems.length > maxItemsToShow;
+
   return (
     <Popover>
       {({ open }) => (
@@ -23,7 +44,7 @@ const PopoverPanel = ({ buttonText }: PopoverPanelProps) => {
               {buttonText}
               <ChevronDownIcon
                 className={classNames('w-5 h-5 ml-2 transition-transform', {
-                  'transform rotate-180': open,
+                  'transform rotate-180': open || expanded,
                 })}
                 aria-hidden="true"
               />
@@ -41,18 +62,18 @@ const PopoverPanel = ({ buttonText }: PopoverPanelProps) => {
             >
               <Popover.Panel
                 static
-                className="absolute left-0 w-[300px] mt-2 -ml-4 transform -translate-x-1/2 sm:px-0 flex flex-wrap text-white bg-black rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                className="absolute left-1/2 w-[500px] mt-2 transform -translate-x-1/2 sm:px-0 overflow-y-auto max-h-96 bg-tableRowEven rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
               >
                 {/* Panel Content */}
-                <div className="flex flex-wrap gap-4 p-2">
-                  {calculateCompanyFrequency(allTableData).map(
-                    ({ company_name, totalFrequency }) => (
-                      <div key={company_name}>
-                        {company_name} ({totalFrequency})
-                      </div>
-                    )
-                  )}
-                </div>
+                <div className="flex flex-wrap gap-4 p-2">{itemsToShow}</div>
+                {shouldShowExpandButton && (
+                  <button
+                    className="w-full text-left text-white focus:outline-none"
+                    onClick={toggleExpansion}
+                  >
+                    {expanded ? 'Collapse' : 'Expand'}
+                  </button>
+                )}
               </Popover.Panel>
             </Transition>
           </div>

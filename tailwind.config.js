@@ -7,7 +7,7 @@ module.exports = {
     colors: {
       ghostWhite: '#F9F9F9',
       graybg: '#1A1A1A',
-      tableRowEven: '#FFFFFF12',
+      tableRowEven: '#2A2A2A',
       white: '#FFFFFF',
       black: '#000000',
       freqText: '#262626',
