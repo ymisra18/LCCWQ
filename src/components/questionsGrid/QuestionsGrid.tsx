@@ -70,15 +70,19 @@ const QuestionsGrid = () => {
   return (
     <>
       <div className="p-6 lg:mx-[241.5px]">
-        <div className="flex justify-between">
-          <div>
-            <DropdownMenu
-              options={options}
-              selectedOption={selectedDifficultyLevel}
-              handleChange={handleDifficultyChange}
-            />
-          </div>
-          <div>
+        <div className="flex justify-between mb-[60px]">
+          <div className="flex">
+            <div className="mr-[10px]">
+              {' '}
+              <DropdownMenu
+                options={options}
+                selectedOption={selectedDifficultyLevel}
+                handleChange={handleDifficultyChange}
+              />
+            </div>
+
+            {/* </div>
+          <div> */}
             <PopoverPanel buttonText="Companies" />
           </div>
           <Searchbar

@@ -15,7 +15,7 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({ buttonText }) => {
   const [expanded, setExpanded] = useState(false);
   const [searchText, setSearchText] = useState('');
 
-  const maxItemsToShow = 20;
+  const maxItemsToShow = 23;
 
   const handleSearchChange = (value: string) => {
     setSearchText(value.trim().toLowerCase());
