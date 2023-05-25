@@ -11,10 +11,7 @@ import {
   HeaderColumn,
 } from '../../constants/questionsGridColumn';
 import allTableData from '../../mocks/data.json';
-import {
-  calculateCompanyFrequency,
-  fetchDifficultyColourCoding,
-} from '../../utils/questionsGrid.utils';
+import { fetchDifficultyColourCoding } from '../../utils/questionsGrid.utils';
 
 const getFilteredProblemByName = (searchString: string, data: any) => {
   if (!searchString) return data;
