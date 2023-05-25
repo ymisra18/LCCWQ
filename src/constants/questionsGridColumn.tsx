@@ -6,7 +6,12 @@ export const columns = [
     accessor: 'name' as const,
     Cell: ({ row }: any) => {
       return (
-        <a className="hover:text-blue" href={row.original.link}>
+        <a
+          className="hover:text-blue"
+          href={row.original.link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           {`${row.index + 1}. ${row.original.name}`}
         </a>
       );
