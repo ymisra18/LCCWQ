@@ -56,23 +56,36 @@ const QuestionsGrid = () => {
   };
   const tableData = useMemo(() => {
     const filteredData = getFilteredProblemByName(searchText, allTableData);
-    return filteredData
-      .filter(
+
+    let filteredByDifficulty = filteredData;
+    if (selectedDifficultyLevel.value !== '') {
+      filteredByDifficulty = filteredData.filter(
         (row: any) =>
-          selectedDifficultyLevel.value === '' ||
           row.difficulty.toLowerCase() === selectedDifficultyLevel.value
-      )
-      .filter((row: any) => {
-        const selectedCompanyNames = selectedCompanies.map((company) =>
-          company.toLowerCase()
-        );
-        return (
-          selectedCompanies.length === 0 ||
-          row.companies.some((company: any) =>
-            selectedCompanyNames.includes(company.company_name.toLowerCase())
-          )
-        );
-      });
+      );
+    }
+
+    let filteredByCompany = filteredByDifficulty;
+
+    if (selectedCompanies.includes('Miscellaneous')) {
+      filteredByCompany = filteredByDifficulty.filter((row: any) =>
+        row.companies.some(
+          (company: any) => company.company_name === 'Miscellaneous'
+        )
+      );
+    } else if (selectedCompanies.length > 0) {
+      const selectedCompanyNames = selectedCompanies.map((company) =>
+        company.toLowerCase()
+      );
+
+      filteredByCompany = filteredByDifficulty.filter((row: any) =>
+        row.companies.some((company: any) =>
+          selectedCompanyNames.includes(company.company_name.toLowerCase())
+        )
+      );
+    }
+
+    return filteredByCompany;
   }, [searchText, selectedDifficultyLevel, selectedCompanies]);
 
   const tableInstance = useTable({ columns, data: tableData }, usePagination);

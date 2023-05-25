@@ -43,7 +43,15 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({
         onClick={() => handleItemSelection(company_name)}
       >
         {company_name}
-        <div className="rounded-full inline-flex items-center leading-4 bg-freqTag text-freqText ml-1 my-[4px] px-1.5 whitespace-nowrap">
+        <div
+          className={classNames(
+            'rounded-full inline-flex items-center leading-4 bg-freqTag text-freqText ml-1 my-[4px] px-1.5 whitespace-nowrap',
+            {
+              'bg-blue text-headerText ':
+                selectedCompanies.includes(company_name),
+            }
+          )}
+        >
           {totalFrequency}
         </div>
       </div>
