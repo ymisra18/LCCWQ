@@ -11,12 +11,14 @@ type PopoverPanelProps = {
   buttonText: string;
   selectedCompanies: string[];
   handleCompanySelection: (companyName: string) => void;
+  selectedTags: any;
 };
 
 const PopoverPanel: React.FC<PopoverPanelProps> = ({
   buttonText,
   selectedCompanies,
   handleCompanySelection,
+  selectedTags,
 }) => {
   const [expanded, setExpanded] = useState(false);
   const [searchText, setSearchText] = useState('');
@@ -113,7 +115,7 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({
             >
               <Popover.Panel
                 static
-                className="absolute left-[190%] w-[500px] mt-2 transform -translate-x-1/2 sm:px-0 bg-tableRowEven text-white rounded-md shadow-xl"
+                className="absolute w-[500px] mt-2   sm:px-0 bg-tableRowEven text-white rounded-md shadow-xl"
               >
                 {/* Panel Content */}
                 <div className="flex flex-wrap gap-4 p-2">
@@ -137,7 +139,26 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({
                 </div>
               </Popover.Panel>
             </Transition>
+            {/* Selected Tags */}
           </div>
+          {selectedTags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-4">
+              {selectedTags.map((tag: any) => (
+                <div
+                  key={tag}
+                  className="text-sm bg-companyTagBg rounded-full inline-flex items-center leading-6 px-2 whitespace-nowrap"
+                >
+                  {tag}
+                  <button
+                    className="w-4 h-4 ml-1 rounded-full bg-red-500 text-white flex items-center justify-center"
+                    onClick={() => handleCompanySelection(tag)}
+                  >
+                    X
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
         </>
       )}
     </Popover>

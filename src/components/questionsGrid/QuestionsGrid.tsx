@@ -40,6 +40,8 @@ const QuestionsGrid = () => {
   const [selectedDifficultyLevel, setSelectedDifficultyLevel] = useState(
     options[0]
   );
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
   const [selectedCompanies, setSelectedCompanies] = useState<string[]>([]);
   const handleCompanySelection = (companyName: string) => {
     setSelectedCompanies((prevSelected) => {
@@ -61,6 +63,13 @@ const QuestionsGrid = () => {
           }
           return updatedSelectedCompanies;
         }
+      }
+    });
+    setSelectedTags((prevSelectedTags: any) => {
+      if (prevSelectedTags.includes(companyName)) {
+        return prevSelectedTags.filter((tag: any) => tag !== companyName);
+      } else {
+        return [...prevSelectedTags, companyName];
       }
     });
   };
@@ -134,6 +143,7 @@ const QuestionsGrid = () => {
               buttonText="Companies"
               selectedCompanies={selectedCompanies}
               handleCompanySelection={handleCompanySelection}
+              selectedTags={selectedTags}
             />
           </div>
           <Searchbar
