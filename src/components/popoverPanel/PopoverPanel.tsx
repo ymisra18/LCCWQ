@@ -37,7 +37,7 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({
         className={classNames(
           'text-sm bg-companyTagBg mr-2 rounded-full inline-flex items-center leading-6 px-2 whitespace-nowrap',
           {
-            'bg-blue': selectedCompanies.includes(company_name),
+            'bg-blue text-white': selectedCompanies.includes(company_name),
           }
         )}
         onClick={() => handleItemSelection(company_name)}
