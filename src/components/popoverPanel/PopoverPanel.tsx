@@ -72,7 +72,7 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({ buttonText }) => {
             >
               <Popover.Panel
                 static
-                className="absolute left-[190%] w-[500px] mt-2 transform -translate-x-1/2 sm:px-0 overflow-y-auto max-h-96 bg-tableRowEven text-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                className="absolute left-[190%] w-[500px] mt-2 transform -translate-x-1/2 sm:px-0 overflow-y-auto max-h-96 bg-tableRowEven text-white rounded-md shadow-xl"
               >
                 {/* Panel Content */}
                 <div className="flex flex-wrap gap-4 p-2">
@@ -80,6 +80,7 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({ buttonText }) => {
                     placeholderContent="Search Companies"
                     fetchResults={handleSearchChange}
                     defaultValue={searchText}
+                    className="!text-companyTagText !bg-companyTagBg !pl-[40px] "
                   />
                   {itemsToShow}
                 </div>
