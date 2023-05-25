@@ -126,7 +126,7 @@ const QuestionsGrid = () => {
   return (
     <>
       <div className="p-6 lg:mx-[241.5px]">
-        <div className="flex justify-between ">
+        <div className="flex justify-between mb-[35px]">
           <div className="flex">
             <div className="mr-[10px]">
               {' '}
