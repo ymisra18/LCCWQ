@@ -22,7 +22,7 @@ export const columns = [
         <div className="text-companyTagText">
           {value.length === 0 && '--'}
           {value.map((compData: any, index: number) => (
-            <button
+            <div
               key={index}
               className="bg-companyTagBg mr-2 rounded-full inline-flex items-center leading-6 px-2  whitespace-nowrap"
             >
@@ -30,7 +30,7 @@ export const columns = [
               <div className="rounded-full inline-flex items-center leading-4  bg-freqTag text-freqText ml-1 my-[4px] px-1.5 whitespace-nowrap ">
                 {compData.freq}
               </div>
-            </button>
+            </div>
           ))}
         </div>
       );

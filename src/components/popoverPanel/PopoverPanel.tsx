@@ -32,12 +32,12 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({
 
   const renderedItems = calculateCompanyFrequency(allTableData).map(
     ({ company_name, totalFrequency }) => (
-      <div
+      <button
         key={company_name}
         className={classNames(
           'text-sm bg-companyTagBg mr-2 rounded-full inline-flex items-center leading-6 px-2 whitespace-nowrap',
           {
-            'bg-blue text-white': selectedCompanies.includes(company_name),
+            '!bg-blue text-white': selectedCompanies.includes(company_name),
           }
         )}
         onClick={() => handleItemSelection(company_name)}
@@ -47,14 +47,14 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({
           className={classNames(
             'rounded-full inline-flex items-center leading-4 bg-freqTag text-freqText ml-1 my-[4px] px-1.5 whitespace-nowrap',
             {
-              'bg-blue text-headerText ':
+              '!bg-blue !text-headerText ':
                 selectedCompanies.includes(company_name),
             }
           )}
         >
           {totalFrequency}
         </div>
-      </div>
+      </button>
     )
   );
 
