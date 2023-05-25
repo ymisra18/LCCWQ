@@ -33,9 +33,9 @@ export const Searchbar = ({
   );
 
   return (
-    <div data-testid="Searchbar" className="flex flex-row items-center">
+    <div data-testid="Searchbar" className="flex flex-row ">
       <img
-        className="h-4 relative right-[-2rem] top-[2px]"
+        className="h-4 relative right-[-2rem] top-[8.5px]"
         src={searchDark}
         alt="search"
       />
