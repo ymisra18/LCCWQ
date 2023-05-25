@@ -7,11 +7,17 @@ import { calculateCompanyFrequency } from 'utils/questionsGrid.utils';
 
 import allTableData from '../../mocks/data.json';
 
-export type PopoverPanelProps = {
+type PopoverPanelProps = {
   buttonText: string;
+  selectedCompanies: string[];
+  handleCompanySelection: (companyName: string) => void;
 };
 
-const PopoverPanel: React.FC<PopoverPanelProps> = ({ buttonText }) => {
+const PopoverPanel: React.FC<PopoverPanelProps> = ({
+  buttonText,
+  selectedCompanies,
+  handleCompanySelection,
+}) => {
   const [expanded, setExpanded] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
@@ -21,16 +27,19 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({ buttonText }) => {
   const handleSearchChange = (value: string) => {
     setSearchText(value.trim().toLowerCase());
   };
-
   const handleItemSelection = (item: string) => {
-    if (selectedItems.includes(item)) {
-      setSelectedItems(
-        selectedItems.filter((selectedItem) => selectedItem !== item)
-      );
-    } else {
-      setSelectedItems([...selectedItems, item]);
-    }
+    handleCompanySelection(item);
   };
+
+  // const handleItemSelection = (item: string) => {
+  //   if (selectedItems.includes(item)) {
+  //     setSelectedItems(
+  //       selectedItems.filter((selectedItem) => selectedItem !== item)
+  //     );
+  //   } else {
+  //     setSelectedItems([...selectedItems, item]);
+  //   }
+  // };
 
   const renderedItems = calculateCompanyFrequency(allTableData).map(
     ({ company_name, totalFrequency }) => (
@@ -39,7 +48,7 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({ buttonText }) => {
         className={classNames(
           'text-sm bg-companyTagBg mr-2 rounded-full inline-flex items-center leading-6 px-2 whitespace-nowrap',
           {
-            'bg-blue': selectedItems.includes(company_name),
+            'bg-blue': selectedCompanies.includes(company_name),
           }
         )}
         onClick={() => handleItemSelection(company_name)}

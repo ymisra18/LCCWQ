@@ -40,19 +40,40 @@ const QuestionsGrid = () => {
   const [selectedDifficultyLevel, setSelectedDifficultyLevel] = useState(
     options[0]
   );
-
+  const [selectedCompanies, setSelectedCompanies] = useState<string[]>([]);
+  const handleCompanySelection = (companyName: string) => {
+    setSelectedCompanies((prevSelected) => {
+      if (prevSelected.includes(companyName)) {
+        return prevSelected.filter((company) => company !== companyName);
+      } else {
+        return [...prevSelected, companyName];
+      }
+    });
+  };
   const [searchText, setSearchText] = useState('');
   const handleSearchChange = (searchText: string) => {
     setSearchText(searchText.trim());
   };
   const tableData = useMemo(() => {
     const filteredData = getFilteredProblemByName(searchText, allTableData);
-    return filteredData.filter(
-      (row: any) =>
-        selectedDifficultyLevel.value === '' ||
-        row.difficulty.toLowerCase() === selectedDifficultyLevel.value
-    );
-  }, [searchText, selectedDifficultyLevel]);
+    return filteredData
+      .filter(
+        (row: any) =>
+          selectedDifficultyLevel.value === '' ||
+          row.difficulty.toLowerCase() === selectedDifficultyLevel.value
+      )
+      .filter((row: any) => {
+        const selectedCompanyNames = selectedCompanies.map((company) =>
+          company.toLowerCase()
+        );
+        return (
+          selectedCompanies.length === 0 ||
+          row.companies.some((company: any) =>
+            selectedCompanyNames.includes(company.company_name.toLowerCase())
+          )
+        );
+      });
+  }, [searchText, selectedDifficultyLevel, selectedCompanies]);
 
   const tableInstance = useTable({ columns, data: tableData }, usePagination);
   const handleChange = (option: any) => {
@@ -83,7 +104,11 @@ const QuestionsGrid = () => {
 
             {/* </div>
           <div> */}
-            <PopoverPanel buttonText="Companies" />
+            <PopoverPanel
+              buttonText="Companies"
+              selectedCompanies={selectedCompanies}
+              handleCompanySelection={handleCompanySelection}
+            />
           </div>
           <Searchbar
             placeholderContent="  Search Questions"
