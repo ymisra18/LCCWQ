@@ -72,7 +72,7 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({ buttonText }) => {
             >
               <Popover.Panel
                 static
-                className="absolute left-[190%] w-[500px] mt-2 transform -translate-x-1/2 sm:px-0 overflow-y-auto max-h-96 bg-tableRowEven text-white rounded-md shadow-xl"
+                className="absolute left-[190%] w-[500px] mt-2 transform -translate-x-1/2 sm:px-0 bg-tableRowEven text-white rounded-md shadow-xl"
               >
                 {/* Panel Content */}
                 <div className="flex flex-wrap gap-4 p-2">
@@ -82,16 +82,22 @@ const PopoverPanel: React.FC<PopoverPanelProps> = ({ buttonText }) => {
                     defaultValue={searchText}
                     className="!text-companyTagText !bg-companyTagBg !pl-[40px] "
                   />
-                  {itemsToShow}
+                  <div className="max-h-96 overflow-y-auto flex flex-wrap gap-4">
+                    {itemsToShow.map((item) => (
+                      <div key={item.key} className="flex">
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                  {shouldShowExpandButton && (
+                    <button
+                      className="w-full text-left text-white focus:outline-none"
+                      onClick={toggleExpansion}
+                    >
+                      {expanded ? 'Collapse' : 'Expand'}
+                    </button>
+                  )}
                 </div>
-                {shouldShowExpandButton && (
-                  <button
-                    className="w-full text-left text-white focus:outline-none"
-                    onClick={toggleExpansion}
-                  >
-                    {expanded ? 'Collapse' : 'Expand'}
-                  </button>
-                )}
               </Popover.Panel>
             </Transition>
           </div>
