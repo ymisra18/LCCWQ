@@ -2,6 +2,8 @@
 ## What is this Project about ?
 This project is a website which enhances your experience while you are solving coding problems online on Leetcode. It'll be of major help for anyone preparing for big tech giants and many other companies, and also for those who simply enjoy the process of problem solving. It provides leetcode premium features/questions for free.
 
+### Click [here](https://leetcode-questions.netlify.app/) to go to the website :)
+
 ## Demo Video
 
 
