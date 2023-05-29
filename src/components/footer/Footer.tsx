@@ -33,7 +33,5 @@ export const Footer = () => (
     >
       Feedback
     </a>
-    <p className="text-white text[20px] flex mt-2 pr-1">|</p>
-    <p className="text-white text[20px] flex mt-2 pr-1">© 2023, ymisra18</p>
   </div>
 );
