@@ -5,7 +5,23 @@ export const Footer = () => (
     data-testid="Footer"
   >
     <p className="text-white text[20px] flex mt-2 pr-1">
-      Made with love by Yashi Misra 🤍
+      Made with love by Yashi Misra 🤍 |
     </p>
+    <a
+      className="text-white text[20px] flex mt-2 pr-1"
+      href="https://github.com/ymisra18/LCCWQ/issues/new/choose"
+      target="_blank"
+      rel="noreferrer"
+    >
+      Report Issues |
+    </a>
+    <a
+      className="text-white text[20px] flex mt-2 pr-1"
+      href="https://github.com/ymisra18/LCCWQ"
+      target="_blank"
+      rel="noreferrer"
+    >
+      GitHub
+    </a>
   </div>
 );
