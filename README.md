@@ -38,3 +38,6 @@ Special thanks to Huan Xu for this [leetcode-company-wise-problems-2022](https:/
 
 ## Creator
 - [Yashi Misra](https://www.linkedin.com/in/yashi-misra-405a4516b/)
+
+## Copyright
+- [MIT License](https://github.com/ymisra18/LCCWQ/blob/main/LICENSE)
