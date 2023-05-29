@@ -5,7 +5,8 @@ This project is a website which enhances your experience while you are solving c
 ## Demo Video
 
 
-https://github.com/ymisra18/LCCWQ/assets/134476014/788fc593-0885-4df6-bd09-d085ec52fbce
+https://github.com/ymisra18/LCCWQ/assets/134476014/c13cbb77-c25e-409c-8cd4-a374f48527ac
+
 
 
 
