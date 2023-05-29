@@ -5,12 +5,12 @@ This project is a website which enhances your experience while you are solving c
 ★ Company Tags
 - Reveals information about which companies have asked the problem that you are currently solving and how many times this problem been asked by the same companies
 
-★ Question list filter for a specific Company/Companies
+★ Filter questions on the basis of specific Company/Companies
 - Provides the company wise list of problems upon click of any specific company tag.
 - Users can click on problem link and that same problem is opened in a new tab.
 - Users can search within the provided list of companies and select/deselect tags.
 
-★ Filter on the Basis of difficulty
+★ Filter questions on the Basis of difficulty
 - Users can choose to apply either easy/medium/hard or on all levels to filter and work on the problems.
 
 Your feedback and constructive criticism, is always appreciated, and we look forward to make this website better day by day, step by step.
