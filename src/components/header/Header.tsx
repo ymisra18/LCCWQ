@@ -8,7 +8,7 @@ export const Header = () => {
     >
       <div className="flex items-center">
         <img className=" h-[45px]" src={logo} alt="LCCWQ logo" />
-        <p className=" text-headerText text-[30px] ">
+        <p className=" text-white text-[30px] ">
           Leetcode Company Wise Questions
         </p>
       </div>
