@@ -5,7 +5,7 @@ export const Footer = () => (
     data-testid="Footer"
   >
     <p className="text-white text[20px] flex mt-2 pr-1">
-      © Made with love by Yashi Misra 🤍 |
+      Made with love by Yashi Misra 🤍 |
     </p>
     <a
       className="text-white text[20px] flex mt-2 pr-1 hover:text-blue"
@@ -33,5 +33,7 @@ export const Footer = () => (
     >
       Feedback
     </a>
+    <p className="text-white text[20px] flex mt-2 pr-1">|</p>
+    <p className="text-white text[20px] flex mt-2 pr-1">© 2023, ymisra18</p>
   </div>
 );
