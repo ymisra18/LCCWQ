@@ -19,10 +19,9 @@ Your feedback and constructive criticism, is always appreciated, and we look for
 ### BONUS: Star this [repository](https://github.com/ymisra18/LCCWQ/) for further development of features. If you want a particular feature, simply request for it!
 
 ## How to run locally
-  For Mac:
 - Clone/Download this Repository.
 - Run `npm install`
-- Run `npm start` to spin up the [local dev server port 3000.](http://localhost:3000/)
+- Run `npm start` to spin up the [local dev server port 3000].(http://localhost:3000/)
 
 ## Code References
 Special thanks to Huan Xu for this [leetcode-company-wise-problems-2022](https://github.com/hxu296/leetcode-company-wise-problems-2022/blob/main/data/leetcode_problems_and_companies.csv) csv file which helps our website to unlock the information about which companies have asked the problem.
