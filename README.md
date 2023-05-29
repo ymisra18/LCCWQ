@@ -1,46 +1,43 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## What is this Project about ?
+This project is a website which enhances your experience while you are solving coding problems online on Leetcode. It'll be of major help for anyone preparing for big tech giants and many other companies, and also for those who simply enjoy the process of problem solving. It provides leetcode premium features/questions for free.
 
-## Available Scripts
+### Click [here](https://leetcode-questions.netlify.app/) to go to the website :)
 
-In the project directory, you can run:
+## Demo Video
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+https://github.com/ymisra18/LCCWQ/assets/134476014/c13cbb77-c25e-409c-8cd4-a374f48527ac
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+★ Company Tags
+- Reveals information about which companies have asked the problem that you are currently solving and how many times this problem been asked by the same companies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+★ Filter questions on the basis of specific Company/Companies
+- Provides the company wise list of problems upon click of any specific company tag.
+- Users can click on problem link and that same problem is opened in a new tab.
+- Users can search within the provided list of companies and select/deselect tags.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+★ Filter questions on the Basis of difficulty
+- Users can choose to apply either easy/medium/hard or on all levels to filter and work on the problems.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Your feedback and constructive criticism, is always appreciated, and we look forward to make this website better day by day, step by step.
 
-### `npm run eject`
+  
+### BONUS: Star this [repository](https://github.com/ymisra18/LCCWQ/) for further development of features. If you want a particular feature, simply request for it!
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## How to run locally
+- Clone/Download this Repository.
+- Run `npm install`
+- Run `npm start` to spin up the [local dev server port 3000](http://localhost:3000/).
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Code References
+Special thanks to Huan Xu for this [leetcode-company-wise-problems-2022](https://github.com/hxu296/leetcode-company-wise-problems-2022/blob/main/data/leetcode_problems_and_companies.csv) csv file which helps our website to unlock the information about which companies have asked the problem.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Creator
+- [Yashi Misra](https://www.linkedin.com/in/yashi-misra-405a4516b/)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Copyright
+- [MIT License](https://github.com/ymisra18/LCCWQ/blob/main/LICENSE)
